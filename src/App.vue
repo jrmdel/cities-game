@@ -1,60 +1,45 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
+  <v-app id="app" style="background: #FFFFF">
+    <AppBar/>
     <v-main>
-      <HelloWorld/>
+      <Summary/>
+      <Question/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Question from './components/Question.vue';
+import AppBar from './components/AppBar.vue';
+import Summary from "./components/Summary.vue";
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    AppBar,
+    Question,
+    Summary
   },
 
   data: () => ({
     //
   }),
+
+  beforeMount(){
+    if(localStorage.getItem("dark-theme")){
+      try {
+        this.$vuetify.theme.dark = (localStorage.getItem("dark-theme")=='true');
+      } catch (error) {
+        localStorage.removeItem('dark-theme');
+      }
+    } else this.$vuetify.theme.dark = true;
+  }
 };
 </script>
+
+<style>
+    .v-card__text, .v-card__title {
+       word-break: normal; /* maybe !important  */
+    }
+</style>
