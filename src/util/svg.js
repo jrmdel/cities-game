@@ -18,7 +18,7 @@ function computeViewbox(path){
   let yArr = matrix.map(o=>o[1]);
   let { min: xMin, max: xMax } = extractMinMax(xArr);
   let { min: yMin, max: yMax } = extractMinMax(yArr);
-  return `${xMin} ${yMin} ${xMax-xMin} ${yMax-yMin}`
+  return `${xMin-0.1} ${yMin-0.1} ${xMax-xMin+0.2} ${yMax-yMin+0.2}`
 }
 
 module.exports = {

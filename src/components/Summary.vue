@@ -1,5 +1,5 @@
 <template>
-  <v-container class="pa-6 mt-12">
+  <v-container class="pa-6 mt-lg-12">
     <v-card flat>
       <v-card-title class="text-h4 font-weight-light">
         Which department is this city in ?
