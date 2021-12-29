@@ -29,7 +29,7 @@ export default {
   computed: {
     getViewbox: {
       get(){
-        return computeViewbox(this.getPath) || ""
+        return computeViewbox(this.getPath, 1) || ""
       }
     },
     getPath: {

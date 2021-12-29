@@ -7,11 +7,11 @@
               {{cityName}}
           </v-card-text>
           <v-card-text>
-            <CardGrid/>
+            <CardGrid ref="grid"/>
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn text color="primary">OK</v-btn>
+            <v-btn text color="primary" @click="refreshProposal">OK</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
@@ -32,5 +32,11 @@
     data: () => ({
       cityName: "Aast"
     }),
+
+    methods:{
+      refreshProposal(){
+        this.$refs.grid.actOnRefresh();
+      }
+    }
   }
 </script>

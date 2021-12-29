@@ -21,11 +21,12 @@ export default {
   data: ()=>({
     //
     possibleAnswers: [
-      {name: "Savoie", number: "73"},
-      {name: "Yvelines", number: "78"},
-      {name: "Corse 2B", number: "2B"},
-      {name: "Corse 2A", number: "2A"},
+      {name: "", number: "73"},
+      {name: "", number: "78"},
+      {name: "", number: "2B"},
+      {name: "", number: "2A"},
     ],
+    allPossible: [...Array(95).keys()].map(n=> (n<9) ? `0${n+1}` : `${n+1}` ).filter(n=>n!="20").concat(["2A", "2B"]),
     disabled: false,
   }),
   methods:{
@@ -35,6 +36,14 @@ export default {
       setTimeout(()=>{
         this.disabled = false;
       },2500)
+    },
+    actOnRefresh(){
+      for (let i = 0; i < this.possibleAnswers.length; i++) {
+        this.possibleAnswers[i].number = this.pickRandomElementFrom(this.allPossible);
+      }
+    },
+    pickRandomElementFrom(arr){
+      return arr[Math.floor(arr.length*Math.random())]
     }
   }
 }
