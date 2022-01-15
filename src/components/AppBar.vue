@@ -7,7 +7,7 @@
       </div>
       <v-spacer></v-spacer>
       <div class="d-flex justify-center">
-        <v-switch v-model="computedTheme" inset 
+        <v-switch v-model="computedTheme" inset color="primary"
         :prepend-icon="(computedTheme) ? 'mdi-weather-night' : 'mdi-white-balance-sunny'" hide-details></v-switch>
       </div>
       <v-divider class="mx-3" inset vertical></v-divider>

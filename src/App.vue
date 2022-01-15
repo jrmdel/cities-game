@@ -2,8 +2,8 @@
   <v-app id="app" style="background: #FFFFF">
     <AppBar/>
     <v-main>
-      <Summary/>
-      <Question/>
+      <Summary @settings="applySettings($event)"/>
+      <Question :settings="settings" @error="displayError($event)"/>
     </v-main>
   </v-app>
 </template>
@@ -23,8 +23,17 @@ export default {
   },
 
   data: () => ({
-    //
+    settings: null,
   }),
+
+  methods:{
+    applySettings(event){
+      this.settings = Object.assign({}, event);
+    },
+    displayError(event){
+      console.error(event);
+    }
+  },
 
   beforeMount(){
     if(localStorage.getItem("dark-theme")){

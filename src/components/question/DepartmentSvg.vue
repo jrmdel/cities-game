@@ -39,7 +39,7 @@ export default {
     },
     getColor: {
       get(){
-        return this.color
+        return (this.color) ? this.parseColor(this.color) : this.defaultColor;
       }
     },
     getTitle: {
@@ -56,6 +56,13 @@ export default {
 
   data:()=>({
     paths: departments,
-  })
+    defaultColor: "#fafafa"
+  }),
+
+  methods: {
+    parseColor(color){
+      return (typeof color == "string" && color[0]=="#") ? color : this.$vuetify.theme.themes[this.$vuetify.theme.isDark ? "dark" : "light"][color]
+    }
+  }
 }
 </script>
