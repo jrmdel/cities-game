@@ -34,9 +34,12 @@ module.exports = {
   getQuestion: async (query)=> new Promise((resolve, reject) => {
     if(query.level == 1){
       count = (count+1)%(mock.length);
-      resolve({ status: 200, data: mock[count] });
+      setTimeout(()=>{
+        resolve({ status: 200, data: mock[count] });
+      }, 200);
+    } else {
+      reject({ status: 400, data: { } })
     }
-    reject({ status: 400, data: { } })
   }),
   postAnswer: async (body)=> new Promise((resolve) => {
     let res = ["22", "59", "07"];

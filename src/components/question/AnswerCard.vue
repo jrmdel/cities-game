@@ -1,5 +1,5 @@
 <template>
-  <v-card class="card-fix flex d-flex flex-column" tile outlined @click="actOnClick" :loading="loading" :disabled="disabled" min-height="170">
+  <v-card class="card-fix flex d-flex flex-column" tile outlined @click="actOnClick()" :loading="loading" :disabled="disabled" min-height="170">
     <v-card-title class="text-h5 text-sm-h3">
       {{ getProposalNumber }}
     </v-card-title>
@@ -26,6 +26,7 @@ export default {
   components:{
     DepartmentSvg
   },
+
   watch:{
     disabled:{
       handler(val, old){
@@ -58,7 +59,8 @@ export default {
       get(){
         return this.proposal?.name || ""
       }
-    }
+    },
+
   },
 
   data: ()=>({
@@ -70,9 +72,10 @@ export default {
     actOnClick(){
       this.$emit("selected", {value: this.getProposalNumber});
       this.loading = "primary";
+      console.log("isMobile : "+this.$vuetify.breakpoint.mobile);
+      console.warn(this.$vuetify)
     },
     displayColor(color, timeout){
-      console.log("DisplayColor being called in AnswerCard.vue")
       this.color = color;
       setTimeout(()=>{
         this.color = null;
@@ -84,5 +87,5 @@ export default {
 
 <style scoped>
   .card-fix:focus::before { opacity: 0 !important; }
-  .card-fix:hover::before { opacity: 0.08 !important; }
+  /* .card-fix:hover::before { opacity: 0.08 !important; } */
 </style>
