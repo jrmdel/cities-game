@@ -3,8 +3,10 @@
     <v-row class="text-center">
       <v-col cols="12">
         <v-card v-show="proposals!=null" flat outlined color="card">
-          <v-card-text class="text-h4 text-sm-h3 question--text mt-4">
-              {{cityName}}
+          <v-card-text class="question--text mt-4">
+            <div class="text-h4 text-sm-h3">{{cityName}}</div>
+            <!-- <div class="my-2">Population : {{getFormattedPopulation}}</div> -->
+            <div class="my-1 my-sm-2 text-sm-h6">Population : {{getFormattedPopulation}}</div>
           </v-card-text>
           <v-card-text>
             <CardGrid :proposals="proposals" @answer="processAnswer($event)" ref="grid"/>
@@ -48,6 +50,11 @@
         get(){
           return this.hasTempData && this.timeoutElapsed;
         }
+      },
+      getFormattedPopulation: {
+        get(){
+          return (this.cityPopulation != null) ? (parseInt(this.cityPopulation)).toLocaleString() : ""
+        }
       }
     },
 
@@ -73,6 +80,7 @@
 
     data: () => ({
       cityName: null,
+      cityPopulation: null,
       proposals: null,
       timeoutRefresh: 1000,
       timeoutElapsed: false,
@@ -87,6 +95,7 @@
           console.log(res);
           this.tempProposals = Object.assign({}, {
             proposals: this.shuffle(res?.data?.proposals),
+            population: res?.data?.population,
             cityName: res?.data?.city
           })
         } catch (error) {
@@ -96,6 +105,7 @@
       propagateProposalsAndName(){
         this.proposals = this.tempProposals?.proposals || [];
         this.cityName = this.tempProposals?.cityName || "";
+        this.cityPopulation = this.tempProposals?.population || "";
         this.tempProposals = null;
       },
       refreshProposal(){
@@ -103,7 +113,7 @@
       async processAnswer(event){
         console.log("Answer processed in Question.vue")
         try {
-          let res = await postAnswer(event);
+          let res = await postAnswer({ city: this.cityName, proposals: this.proposals.map(o=>o.id), ...event });
           this.historyArray.push(res?.data?.result);
           console.log(`Result : ${JSON.stringify(res)}`)
           this.$refs.grid.displayResult(res?.data, this.timeoutRefresh);
@@ -117,6 +127,9 @@
         setTimeout(()=>{
           this.timeoutElapsed = true;
         }, this.timeoutRefresh)
+      },
+      resetHistory(){
+        this.historyArray = [];
       },
       shuffle([...arr]){
         let m = arr.length;

@@ -31,6 +31,7 @@ export default {
   data:()=>({
     settings: true,
     level: 1,
+    currentLevel: undefined
   }),
 
   methods:{
@@ -38,7 +39,10 @@ export default {
       this.settings = !this.settings;
     },
     saveSettings(){
-      this.$emit("settings", { level: this.level });
+      if(this.level != this.currentLevel){
+        this.currentLevel = this.level;
+        this.$emit("settings", { level: this.level });
+      }
       setTimeout(()=> {
         this.settings = false;
       }, 250)

@@ -3,7 +3,7 @@
     <AppBar/>
     <v-main>
       <Summary @settings="applySettings($event)"/>
-      <Question :settings="settings" @error="displayError($event)"/>
+      <Question :settings="settings" @error="displayError($event)" ref="question"/>
     </v-main>
   </v-app>
 </template>
@@ -29,9 +29,13 @@ export default {
   methods:{
     applySettings(event){
       this.settings = Object.assign({}, event);
+      this.resetHistory()
     },
     displayError(event){
       console.error(event);
+    },
+    resetHistory(){
+      this.$refs.question.resetHistory();
     }
   },
 

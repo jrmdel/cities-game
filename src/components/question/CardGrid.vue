@@ -55,7 +55,7 @@ export default {
     actOnClick(event){
       this.disabled = true;
       this.temporaryAnswer = event.value;
-      this.$emit("answer", { number: event.value });
+      this.$emit("answer", event);
     },
     displayResult(data, timeout){
       if(data?.result == true){
@@ -67,7 +67,7 @@ export default {
     },
     getIdFromProposals(value){
       if(this.proposals != null){
-        return this.proposals.findIndex(o=>o.number == value);
+        return this.proposals.findIndex(o=>o.id == value);
       } return null
     },
   }
