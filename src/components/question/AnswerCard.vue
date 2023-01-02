@@ -1,12 +1,12 @@
 <template>
-  <v-card class="card-fix flex d-flex flex-column" tile outlined @click="actOnClick()" :loading="loading" :disabled="disabled" min-height="170">
+  <v-card class="card-fix flex d-flex flex-column" tile outlined @click="actOnClick()" :loading="loading" :disabled="disabled" min-height="100">
     <v-card-title class="mt-n2 text-h5 text-sm-h4">
       {{ getProposalId }}
     </v-card-title>
     <v-card-text class="my-n5 my-md-n3">
       <v-container fluid>
         <v-row align="center" justify="center">
-          <v-col cols="8" md="7" lg="5">
+          <v-col cols="8" sm="7" md="5">
             <DepartmentSvg :id="getProposalId" :color="color"/>
           </v-col>
         </v-row>

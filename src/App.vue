@@ -4,7 +4,7 @@
     <v-main>
       <v-container>
         <v-row justify="center">
-          <v-col cols="11" sm="9" lg="8">
+          <v-col cols="12" sm="10" md="9" lg="8">
             <Summary @settings="applySettings($event)"/>
             <Question :settings="settings" @error="displayError($event)" ref="question"/>
           </v-col>

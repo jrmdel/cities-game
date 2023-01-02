@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <!-- Visibility as a 2x2 grid on all screens -->
-    <v-row class="mx-n6 mx-sm-0" :dense="$vuetify.breakpoint.smAndDown" justify="center" v-for="i in 2" :key="i">
+    <v-row class="mx-n6 mx-sm-0" :dense="$vuetify.breakpoint.xs" justify="center" v-for="i in 2" :key="i">
       <v-col v-for="k in 2" :key="k" cols="6" class="d-flex flex-column">
         <AnswerCard v-if="gameIsOn" :proposal="possibleAnswers[2*(i-1)+k-1]" @selected="actOnClick($event)" :disabled="disabled" ref="answerCards"/>
       </v-col>
