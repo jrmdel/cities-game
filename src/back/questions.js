@@ -14,6 +14,11 @@ function pickCity(nFirst = cities.length){
   }
 }
 
+// This function to pick, for each department, the two largest cities
+// function pickTopTwo(){
+//   dep.map(o=>o.id)
+// }
+
 function pickProposals(exclude){
   return sample(dep.filter(o=>!exclude.map(e=>e.id).includes(o.id)))
 }

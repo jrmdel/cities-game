@@ -2,8 +2,14 @@
   <v-app id="app" style="background: #FFFFF">
     <AppBar/>
     <v-main>
-      <Summary @settings="applySettings($event)"/>
-      <Question :settings="settings" @error="displayError($event)" ref="question"/>
+      <v-container>
+        <v-row justify="center">
+          <v-col cols="11" sm="9" lg="8">
+            <Summary @settings="applySettings($event)"/>
+            <Question :settings="settings" @error="displayError($event)" ref="question"/>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-main>
   </v-app>
 </template>

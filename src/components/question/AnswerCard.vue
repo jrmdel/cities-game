@@ -1,18 +1,18 @@
 <template>
   <v-card class="card-fix flex d-flex flex-column" tile outlined @click="actOnClick()" :loading="loading" :disabled="disabled" min-height="170">
-    <v-card-title class="text-h5 text-sm-h3">
+    <v-card-title class="mt-n2 text-h5 text-sm-h4">
       {{ getProposalId }}
     </v-card-title>
-    <v-card-text class="my-n6 my-md-n2">
+    <v-card-text class="my-n5 my-md-n3">
       <v-container fluid>
         <v-row align="center" justify="center">
-          <v-col cols="8" sm="7" lg="5">
+          <v-col cols="8" md="7" lg="5">
             <DepartmentSvg :id="getProposalId" :color="color"/>
           </v-col>
         </v-row>
       </v-container>
     </v-card-text>
-    <v-card-subtitle class="text-sm-h6">
+    <v-card-subtitle class="mt-n3 text-sm-subtitle-1 text-md-h6">
       {{ getProposalTitle }}
     </v-card-subtitle>
   </v-card>

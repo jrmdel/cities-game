@@ -4,9 +4,8 @@
       <v-col cols="12">
         <v-card v-show="proposals!=null" flat outlined color="card">
           <v-card-text class="question--text mt-4">
-            <div class="text-h4 text-sm-h3">{{cityName}}</div>
-            <!-- <div class="my-2">Population : {{getFormattedPopulation}}</div> -->
-            <div class="my-1 my-sm-2 text-sm-h6">Population : {{getFormattedPopulation}}</div>
+            <div class="text-h5 text-sm-h4">{{cityName}}</div>
+            <div class="my-1 my-sm-2 text-lg-subtitle-1">Population : {{getFormattedPopulation}}</div>
           </v-card-text>
           <v-card-text>
             <CardGrid :proposals="proposals" @answer="processAnswer($event)" ref="grid"/>
@@ -24,6 +23,8 @@
   import CardGrid from "./question/CardGrid.vue"
   import Results from "./question/Results.vue"
   import { getQuestion, postAnswer } from "../services/QuestionService"
+  import { db } from "../plugins/firebaseDb";
+  import { collection, addDoc } from "firebase/firestore"; 
 
   export default {
     name: 'Question',
@@ -92,7 +93,6 @@
       async updateProposals(){
         try {
           let res = await getQuestion(this.settings);
-          console.log(res);
           this.tempProposals = Object.assign({}, {
             proposals: this.shuffle(res?.data?.proposals),
             population: res?.data?.population,
@@ -108,19 +108,27 @@
         this.cityPopulation = this.tempProposals?.population || "";
         this.tempProposals = null;
       },
-      refreshProposal(){
-      },
       async processAnswer(event){
-        console.log("Answer processed in Question.vue")
         try {
-          let res = await postAnswer({ city: this.cityName, proposals: this.proposals.map(o=>o.id), ...event });
+          let query = { city: this.cityName, proposals: this.proposals.map(o=>o.id), ...event };
+          let res = await postAnswer(query);
+          this.saveInHistory({ ...query, ...res?.data });
           this.historyArray.push(res?.data?.result);
-          console.log(`Result : ${JSON.stringify(res)}`)
           this.$refs.grid.displayResult(res?.data, this.timeoutRefresh);
           this.initiateTimeoutClock();
           await this.updateProposals();
         } catch (error) {
           this.$emit("error", { message: error.message });
+        }
+      },
+      async saveInHistory(data){
+        try {
+          await addDoc(
+            collection(db, "history-cities-fr"),
+            { ...data, population: parseInt(this.cityPopulation), level: this.settings?.level, date: (new Date).toISOString() }
+          );
+        } catch (error) {
+          console.warn("Unable to log answer: "+error.message);
         }
       },
       initiateTimeoutClock(){

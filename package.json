@@ -5,14 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "sh deploy.sh"
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
-    "axios": "^0.24.0",
     "core-js": "^3.6.5",
-    "nunito-fontface": "^0.7.3",
-    "roboto-fontface": "*",
+    "firebase": "^9.6.7",
     "vue": "^2.6.11",
     "vuetify": "^2.4.0"
   },

@@ -1,7 +1,7 @@
 <template>
   <v-container class="pa-6 mt-lg-12">
     <v-card flat >
-      <v-card-title class="text-h5 text-sm-h4 font-weight-light">
+      <v-card-title class="text-h6 text-sm-h5 font-weight-light">
         <span>Dans quel département se trouve cette ville ?</span>
         <v-spacer></v-spacer>
         <v-icon class="d-flex" @click="settings = !settings" >mdi-cog</v-icon>
@@ -45,7 +45,7 @@ export default {
       }
       setTimeout(()=> {
         this.settings = false;
-      }, 250)
+      }, 10)
     }
   }
 }
